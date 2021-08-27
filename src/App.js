@@ -9,15 +9,22 @@ const App = () => {
   part3: 'State of a component',
   exercises3: 14
 }
-  const part1 = 'Fundamentals of React'
-  const exercises1 = 10
-  const part2 = 'Using props to pass data'
-  const exercises2 = 7
-  const part3 = 'State of a component'
-  const exercises3 = 14
 
-  const propslist = {part1, part2, part3, exercises1, exercises2, exercises3}
-const exerciseslist = {exercises1, exercises2, exercises3}
+
+const part1 = {
+  name: 'Fundamentals of React',
+  exercises: 10
+}
+const part2 = {
+  name: 'Using props to pass data',
+  exercises: 7
+}
+const part3 = {
+  name: 'State of a component',
+  exercises: 14
+}
+
+
 
  const Part = (props) => {
 
@@ -31,7 +38,7 @@ const exerciseslist = {exercises1, exercises2, exercises3}
  const Exercises = (props) => {
    return (
      <div> Number of Exercises:
-       <p>{exerciseslist.exercises1 + exerciseslist.exercises2 + exerciseslist.exercises3}</p>
+       <p>{part1.exercises + part2.exercises + part3.exercises}</p>
       
      </div>
    )
@@ -39,10 +46,10 @@ const exerciseslist = {exercises1, exercises2, exercises3}
   return (
     <div>
       <Header course={course.coursename} />
-      <Part title={course.part1} exercise={course.exercises1}/>
+      <Part title={part1.name} exercise={part1.exercises}/>
       <Part title={course.part2} exercise={course.exercises2}/>
       <Part title={course.part3} exercise={course.exercises3}/>
-      <Exercises exerciseslist={exerciseslist}/>
+      <Exercises exerciseslist={[part1, part2, part3]}/>
       
     </div>
   )
