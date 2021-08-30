@@ -5,50 +5,51 @@ const StatisticLine = (props) => {
   
     if (props.text == "good") {
       return (
-   
-    <div>
-      Good: {props.props.statisticpropdata.good}
-    </div>
+    <>
+      <td>Good:</td> <td>{props.props.statisticpropdata.good}</td>
+    </>
 )  
 }
 if (props.text == "bad") {
   return (
-
-<div>
-  Bad: {props.props.statisticpropdata.bad}
-</div>
+<>
+<td> Bad: </td>
+<td>{props.props.statisticpropdata.bad}</td>
+</>
 )  
 }
 if (props.text == "neutral") {
   return (
-
-<div>
-  Neutral: {props.props.statisticpropdata.neutral}
-</div>
+<>
+  <td>Neutral:</td> 
+  <td> {props.props.statisticpropdata.neutral}</td>
+  </>
 )  
 }
 
 if (props.text == "total") {
   return (
-<div>
-total: {props.props.statisticpropdata.good + props.props.statisticpropdata.neutral + props.props.statisticpropdata.bad}
-</div>
+<>
+<td>total:</td>
+<td>{props.props.statisticpropdata.good + props.props.statisticpropdata.neutral + props.props.statisticpropdata.bad}</td> 
+</>
 )  
 }
 
 if (props.text == "average") {
   return (
-<div>
-Average: {(props.props.statisticpropdata.good - props.props.statisticpropdata.bad)/(props.props.statisticpropdata.good + props.props.statisticpropdata.neutral +props.props.statisticpropdata.bad )}
-</div>
+<>
+<td>Average:</td>
+<td> {(props.props.statisticpropdata.good - props.props.statisticpropdata.bad)/(props.props.statisticpropdata.good + props.props.statisticpropdata.neutral +props.props.statisticpropdata.bad )}</td>
+</>
 )  
 }
 
 if (props.text == "positive") {
   return (
-<div>
-Positive: {(props.props.statisticpropdata.good/(props.props.statisticpropdata.good + props.props.statisticpropdata.neutral +props.props.statisticpropdata.bad ))* 100}
-</div>
+<>
+  <td>Positive:</td>  <td>{(props.props.statisticpropdata.good/(props.props.statisticpropdata.good + props.props.statisticpropdata.neutral +props.props.statisticpropdata.bad ))* 100} </td>
+</>
 )  
 }
 
@@ -66,14 +67,16 @@ const Statistics = (props) => {
   return (
   
   <div>
-
-
-  <StatisticLine props = {props} text="good"/>
-  <StatisticLine props = {props} text="neutral"/>
-  <StatisticLine props = {props} text="bad"/>
-  <StatisticLine props = {props} text="total"/>
-  <StatisticLine props = {props} text="average"/>
-  <StatisticLine props = {props} text="positive"/>
+<table>
+  <tbody>
+<tr><StatisticLine props={props} text="good"/></tr>
+<tr><StatisticLine props={props} text="bad"/></tr>
+<tr><StatisticLine props={props} text="neutral"/></tr>
+<tr><StatisticLine props={props} text="total"/></tr>
+<tr><StatisticLine props={props} text="average"/></tr>
+<tr><StatisticLine props={props} text="positive"/></tr>
+</tbody>
+</table>
   </div>)
 }
 
