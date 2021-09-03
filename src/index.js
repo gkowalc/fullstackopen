@@ -28,7 +28,19 @@ const Content = ({ course }) => {
      {part_function} 
     </>
   )
+  
 }
+
+const Totals = ({course}) => {
+  const totalscore = course.parts.reduce((previousscore, nextvalue)=> previousscore+nextvalue.exercises, 0); 
+  return (
+  <div>Total Score: {totalscore}</div>)
+};
+
+
+
+
+
 
 const App = () => {
   const course = {
@@ -49,8 +61,12 @@ const App = () => {
         name: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        name: 'Redux',
+        exercises: 13,
+        id: 4
       }
-      
     ]
   }
 
@@ -59,6 +75,7 @@ const App = () => {
       <Header course={course} />
       <Content course={course} />
       <Total course={course} />
+      <Totals course={course}></Totals>
     </div>
   )
 }
