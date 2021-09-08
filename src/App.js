@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isCompositeComponent } from 'react-dom/test-utils'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -13,15 +14,22 @@ setNewName(event.target.value)
 
 const addNewName = (event) => {
   event.preventDefault()
+ 
+    
+  
   const nameObject = {
     name: newName,
     date: new Date().toISOString(),
     id: persons.length + 1,
   }
-  setPersons(persons.concat(nameObject))
-  console.log(persons)
 
-}  
+  const filtered = persons.filter(nametest => {if (nametest.name === nameObject.name){return    alert(newName + "is already in the phonebook")}})
+
+  setPersons(persons.concat(nameObject))
+  console.log(persons) 
+
+} 
+
   return (
     <div>
       <h2>Phonebook</h2>
