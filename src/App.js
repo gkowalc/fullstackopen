@@ -1,19 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { isCompositeComponent } from 'react-dom/test-utils'
 
 const App = () => {
-  const [ persons, setPersons ] = useState([]) 
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
+  ])
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ newFilter, setNewFilter ] = useState('')
+  const [filteredArray, setFilteredArray] = useState(persons)
+  
   const handlerNameChange = (event) => {
 setNewName(event.target.value)
   }
 
+  const handlerFilterChange = (event) => {
+    if (newFilter.length === 0) {setFilteredArray(persons)}
+    setNewFilter(event.target.value)
+    setFilteredArray(persons.filter(item => item.name.toLowerCase().indexOf(newFilter) >-1 ))
+      }
 const handlerNumberChange = (event) => {
   setNewNumber(event.target.value)
       }
-    
-
+      
+        
+        
 const addNewName = (event) => {
   event.preventDefault()
 
@@ -38,11 +52,20 @@ if (persons.length > 0) {persons.filter(nametest => {if (nametest.name === nameO
 }
 
 
+
 } 
 
   return (
     <div>
       <h2>Phonebook</h2>
+       filter shown with 
+       <div>
+          name: <input value={newFilter} onChange={handlerFilterChange} />
+        
+
+        </div>
+      <h2>Add a new</h2>
+
       <form>
         <div>
           name: <input value={newName} onChange={handlerNameChange} />
@@ -58,8 +81,8 @@ if (persons.length > 0) {persons.filter(nametest => {if (nametest.name === nameO
 
       <h2>
     Numbers</h2>
-      
-      {persons.map(prop => <ul key={prop.id}> {prop.name} {prop.number} </ul> )}
+    
+      {filteredArray.map(prop => <ul key={prop.id}> {prop.name} {prop.number} </ul> )}
       
     </div>
   )
