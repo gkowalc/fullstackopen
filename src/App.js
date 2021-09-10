@@ -14,10 +14,11 @@ const ReturendDataConditions = (props) => {
     const population = props.props.map(prop => <ul key={prop.id}>  {prop.population}  </ul> ) 
 
     const languages = props.props.map(prop =>   prop.languages.map(prop => <ul> {prop.name}</ul>) ) 
-    const flag = props.props.map(prop =>  <ul key={prop.id}> {prop.flag}</ul>)
+    const flag = props.props.map(prop =>   prop.flag)
+    console.log("hello" +flag)
     return (<>
-      {countryname} Capital: {capital}  Population:{population} <h2>Languages: </h2>{languages}
-       {flag} <img src="{flag}" alt="Flag"></img> <svg viewBox="0 0 100 100" xmlns={flag}></svg>
+      {countryname} Capital: {capital}  Population:{population} <h2>Languages: </h2>{languages} {"\n"}
+   <img src={flag} alt="Flag" width="40%"></img> 
      
       </> 
       )
@@ -42,7 +43,7 @@ useEffect(() => {
       .catch(error => {
           console.log(error);
       });;
-});
+}, [filteredArray]);
 
 
 const handlerNameChange = (event) => {
