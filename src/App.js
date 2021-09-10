@@ -1,103 +1,67 @@
 import React, { useState, useEffect } from 'react'
-import { isCompositeComponent } from 'react-dom/test-utils'
 import axios from 'axios'
-import { render } from 'react-dom'
-const App = () => {
-  const [persons, setPersons] = useState([
-  ])
 
 
-  const [ newName, setNewName ] = useState('')
-  const [ newNumber, setNewNumber ] = useState('')
-  const [ newFilter, setNewFilter ] = useState('')
-  const [filteredArray, setFilteredArray] = useState(persons)
+
+const ReturendDataConditions = (props) => {
+  if (props.props.length > 1 ) {
+    return (<div>Too many matches, specify another filter</div>
+    )
+  } 
+  else if (props.props.length === 1) {
+    const countryname =  props.props.map(prop => <ul key={prop.id}> <h1> {prop.name} </h1> </ul> )
+    const capital = props.props.map(prop => <ul key={prop.id}>  {prop.capital}  </ul> ) 
+    const population = props.props.map(prop => <ul key={prop.id}>  {prop.population}  </ul> ) 
+
+    const languages = props.props.map(prop =>   prop.languages.map(prop => <ul> {prop.name}</ul>) ) 
+    const flag = props.props.map(prop =>  <ul key={prop.id}> {prop.flag}</ul>)
+    return (<>
+      {countryname} Capital: {capital}  Population:{population} <h2>Languages: </h2>{languages}
+       {flag} <img src="{flag}" alt="Flag"></img> <svg viewBox="0 0 100 100" xmlns={flag}></svg>
+     
+      </> 
+      )
+     
+}
   
-  useEffect(() => {
-    console.log('effect')
-    axios.get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setFilteredArray(response.data)
-        
-      })
-      
-  }, [])
-
-  const handlerNameChange = (event) => {
-setNewName(event.target.value)
-  }
-
-
-
-  const handlerFilterChange = (event) => {
-    if (newFilter.length === 0) {setFilteredArray(persons)}
-    setNewFilter(event.target.value)
-    setFilteredArray(persons.filter(item => item.name.toLowerCase().indexOf(newFilter) >-1 ))
-      }
-const handlerNumberChange = (event) => {
-  setNewNumber(event.target.value)
-      }
-      
-        
-        
-const addNewName = (event) => {
-  event.preventDefault()
-
-  const nameObject = {
-    name: newName,
-    number: newNumber,
-    date: new Date().toISOString(),
-    id: persons.length + 1
+     
  
+  else
+  { 
+    return (props.props.map(prop => <ul key={prop.id}> {prop.name} </ul> )) 
+}
   }
-console.log(nameObject)
-if (persons.length > 0) {persons.filter(nametest => {if (nametest.name === nameObject.name){return    alert(newName + "is already in the phonebook"), console.log("it is true")} else 
-{ console.log("it is false")
-  setPersons(persons.concat(nameObject))
-  
+
+const App = () => {
+const [filteredArray, setFilteredArray] = useState()
+const [fetchedData, setFetchedData] = useState([])
+
+useEffect(() => {
+  const url = 'https://restcountries.eu/rest/v2/name/' + filteredArray 
+  axios.get(url).then(response => setFetchedData(response.data))
+      .catch(error => {
+          console.log(error);
+      });;
+});
+
+
+const handlerNameChange = (event) => {
+  setFilteredArray(event.target.value)
 }
 
-}
-)
-} else {
-  setPersons(persons.concat(nameObject))
-}
-
-
-
-} 
 
   return (
     <div>
-      <h2>Phonebook</h2>
-       filter shown with 
-       <div>
-          name: <input value={newFilter} onChange={handlerFilterChange} />
-        
-
-        </div>
-      <h2>Add a new</h2>
-
+      find countries: 
       <form>
-        <div>
-          name: <input value={newName} onChange={handlerNameChange} />
-        
-
-        </div>
-  <div>number: <input value={newNumber} onChange={handlerNumberChange}/></div>
-
-        <div>
-          <button type="submit" onClick={addNewName}>add</button>
-        </div>
-      </form>
-
-      <h2>
-    Numbers</h2>
+      <input value={filteredArray} onChange={handlerNameChange}/>
+   </form>
+    dd <ReturendDataConditions props={fetchedData}/>
     
-      {filteredArray.map(prop => <ul key={prop.id}> {prop.name} {prop.number} </ul> )}
-      
     </div>
   )
+
+
 }
 
 export default App
