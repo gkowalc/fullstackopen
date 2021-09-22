@@ -32,7 +32,18 @@ app.get('/', (req, res) => {
 
 app.get('/api/persons', (req, res) => {
   res.json(persons)
+  
 })
+
+
+app.get('/info', (req, res) => {
+
+console.log(res.json.persons)
+ const note = Math.max.apply(Math, persons.map(function(o) { return o.id; }))
+ const date =  Date().toLocaleString("en-US", {timeZone: "America/New_York"})
+ res.send(`Phonebook has info for ${note} people <br/> ${date}` )
+})
+
 
 const PORT = 3001
 app.listen(PORT, () => {
