@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
+var morgan = require('morgan')
 app.use(express.json())
-
+app.use(morgan('tiny'))
 const generateId = () => {
   const maxId = persons.length > 0
     ? Math.max(...persons.map(n => n.id))
@@ -76,7 +77,7 @@ app.post('/api/persons', (request, response) => {
   if(contains(persons, "name", body.name )) {
     
     return response.status(400).json({ 
-      error: 'content mississsng' 
+      error: 'content already existing' 
     })}
    
 
