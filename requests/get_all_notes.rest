@@ -1,9 +1,9 @@
-GET http://localhost:3001/api/notes
 
-POST http://localhost:3001/api/notes
+POST http://localhost:3001/api/persons
 Content-Type:application/json 
 
 {
-    "content" :"Vs code REST client is the",
-    "important": false
+    "name":  "Adam Adas",
+     "number": "5534535343"
+
 }

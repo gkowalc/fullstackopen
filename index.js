@@ -3,8 +3,8 @@ const app = express()
 app.use(express.json())
 
 const generateId = () => {
-  const maxId = notes.length > 0
-    ? Math.max(...notes.map(n => n.id))
+  const maxId = persons.length > 0
+    ? Math.max(...persons.map(n => n.id))
     : 0
   return maxId + 1
 }
@@ -59,17 +59,35 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  if (!body.content) {
+  if (!body.name) {
     return response.status(400).json({ 
       error: 'content missing' 
     })
   }
+
+  function contains(arr, key, val) {
+    for (var i = 0; i < arr.length; i++) {
+        if(arr[i][key] === val) return true;
+    }
+    return false;
+}
+  var results = persons.filter(x => x.name == body.name)
+  console.log("name", body.name)
+  if(contains(persons, "name", body.name )) {
+    
+    return response.status(400).json({ 
+      error: 'content mississsng' 
+    })}
+   
+
+
+
   const person = {
-    content: body.content,
+    name: body.name,
     date: new Date(),
     id: generateId(),
   }
-  persons - persons(concat(person))
+  persons = persons.concat(person)
   console.log(person)
   response.json(person)
 })
