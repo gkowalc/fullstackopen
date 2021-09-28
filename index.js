@@ -1,8 +1,14 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
+app.use(cors())
 var morgan = require('morgan')
 app.use(express.json())
-app.use(morgan('tiny'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
+app.use(express.static('build'))
+
+
 const generateId = () => {
   const maxId = persons.length > 0
     ? Math.max(...persons.map(n => n.id))
@@ -89,7 +95,7 @@ app.post('/api/persons', (request, response) => {
     id: generateId(),
   }
   persons = persons.concat(person)
-  console.log(person)
+
   response.json(person)
 })
 
@@ -102,7 +108,7 @@ console.log(res.json.persons)
 })
 
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

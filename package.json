@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build:ui": "rm -rf build && cd ../fullstackopen_week2_edited/fullstackopen2/ && npm run build --prod && / cp -r build ../../fullstack_week3/    ",
+    "deploy": "git push heroku main",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "start": "node index.js",
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
     "dev": "nodemon index.js"
@@ -11,6 +14,7 @@
   "author": "Greg",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0"
   },
