@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:ui": "rm -rf build && cd ../fullstackopen_week2_edited/fullstackopen2/ && npm run build --prod && / cp -r build ../../fullstack_week3/    ",
-    "deploy": "git push heroku main",
+    "build:ui": "rm -rf build && cd ../fullstackopen_week2_edited/fullstackopen2/ && npm run build --prod && cp -r build ../../fullstack_week3/",
+    "deploy": "git push heroku phonebook_backend",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "start": "node index.js",
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
