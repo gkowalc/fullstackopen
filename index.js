@@ -23,7 +23,7 @@ let persons = [
   },
   { 
     "id": 2,
-    "name": "Ada Lovelace", 
+    "name": "Ada Lovelaces", 
     "number": "39-44-5323523"
   },
   { 
@@ -98,7 +98,6 @@ app.post('/api/persons', (request, response) => {
 
   response.json(person)
 })
-
 app.get('/info', (req, res) => {
 
 console.log(res.json.persons)
@@ -106,6 +105,7 @@ console.log(res.json.persons)
  const date =  Date().toLocaleString("en-US", {timeZone: "America/New_York"})
  res.send(`Phonebook has info for ${note} people <br/> ${date}` )
 })
+
 
 
 const PORT = process.env.PORT || 3001
