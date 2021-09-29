@@ -1,5 +1,8 @@
 const mongoose = require('mongoose')
+<<<<<<< HEAD
 global.TextEncoder = require("util").TextEncoder; 
+=======
+>>>>>>> phonebook_backend
 if (process.argv.length < 3) {
   console.log('Please provide the password as an argument: node mongo.js <password>')
   process.exit(1)
@@ -12,6 +15,7 @@ const url =
 
 mongoose.connect(url)
 
+<<<<<<< HEAD
 const noteSchema = new mongoose.Schema({
   content: String,
   date: Date,
@@ -30,3 +34,25 @@ note.save().then(result => {
   console.log('note saved!')
   mongoose.connection.close()
 })
+=======
+const PersonSchema = new mongoose.Schema({
+  name: String,
+  date: Date,
+  number: Integer,
+})
+
+const Person = mongoose.model('Note', PersonSchema)
+
+const person = new Person({
+  name: "Firstname Lastname",
+  date: new Date(),
+  number: 945745473,
+})
+
+person.save().then(result => {
+  console.log('added!' + person.name + person.number + "To the phonebook")
+  mongoose.connection.close()
+})
+
+
+>>>>>>> phonebook_backend
