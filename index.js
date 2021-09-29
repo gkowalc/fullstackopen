@@ -73,37 +73,45 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
-  if (!body.name) {
+  console.log(body)
+  console.log(body.name)
+  if (body.name === undefined) {
+    return response.status(400).json({ 
+      error: 'content missing' 
+    })
+  }
+  if (body.number === undefined) {
     return response.status(400).json({ 
       error: 'content missing' 
     })
   }
 
-  function contains(arr, key, val) {
-    for (var i = 0; i < arr.length; i++) {
-        if(arr[i][key] === val) return true;
-    }
-    return false;
-}
-  var results = persons.filter(x => x.name == body.name)
+ // function contains(arr, key, val) {
+ //   for (var i = 0; i < arr.length; i++) {
+  //      if(arr[i][key] === val) return true;
+   // }
+    //return false;
+//}
+ //  var results = persons.filter(x => x.name == body.name)
   console.log("name", body.name)
-  if(contains(persons, "name", body.name )) {
-    
-    return response.status(400).json({ 
-      error: 'content already existing' 
-    })}
+  //if(contains(persons, "name", body.name )) {
+  //  
+  //  return response.status(400).json({ 
+  //    error: 'content already existing' 
+  //  })}
    
 
-
-
-  const person = {
+  const person = new Person ( {
     name: body.name,
     date: new Date(),
     id: generateId(),
-  }
-  persons = persons.concat(person)
-
-  response.json(person)
+    number: body.number
+  })
+  // persons = persons.concat(person)
+  person.save().then(savedNote => {
+    response.json(savedNote)
+  })
+ 
 })
 app.get('/info', (req, res) => {
 
