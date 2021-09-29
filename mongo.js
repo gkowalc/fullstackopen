@@ -17,23 +17,23 @@ const PersonSchema = new mongoose.Schema({
   number: Number
 })
 
-const Person = mongoose.model('Note', PersonSchema)
+const Person = mongoose.model('Person', PersonSchema)
 
 const person = new Person({
-  name: "Firstname Lastname",
+  name: "Firstname Lastname222",
   date: new Date(),
   number: 945745473,
 })
 
-//person.save().then(result => {
-//  console.log('added!!' + person.name + person.number + "To the phonebook")
-//  mongoose.connection.close()
-//})
-
-Person.find({}).then(result => {
-  result.forEach(person => {
-    console.log(person)
-  })
+person.save().then(result => {
+  console.log('added!!' + person.name + person.number + "To the phonebook")
   mongoose.connection.close()
 })
+
+//Person.find({}).then(result => {
+ // result.forEach(person => {
+ //   console.log(person)
+ // })
+ // mongoose.connection.close()
+//})
 

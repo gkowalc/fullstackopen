@@ -3,28 +3,16 @@ const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose')
 require('dotenv').config()
-//const Person = require('./models/person')
+
 app.use(cors())
 
 var morgan = require('morgan')
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(express.static('build'))
+const Person = require('./models/person')
 
 
-
-// mongodb
-const url =
-  `mongodb+srv://kasdja17kkaa1111:kdfsjfsdfjbsa7767@cluster0.eqb3i.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
-
-mongoose.connect(url)
-const PersonSchema = new mongoose.Schema({
-  name: String,
-  date: Date,
-  number: Number
-})
-
-const Person = mongoose.model('Note', PersonSchema)
 
 const generateId = () => {
   const maxId = persons.length > 0
@@ -62,7 +50,7 @@ app.get('/', (req, res) => {
 app.get('/api/persons', (req, res) => {
   //res.json(persons)
   Person.find({}).then(notes => {
-    response.json(notes)
+    res.json(notes)
   })
 })
 
