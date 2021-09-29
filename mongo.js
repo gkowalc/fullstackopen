@@ -14,7 +14,7 @@ mongoose.connect(url)
 const PersonSchema = new mongoose.Schema({
   name: String,
   date: Date,
-  number: Integer,
+  number: Number
 })
 
 const Person = mongoose.model('Note', PersonSchema)
