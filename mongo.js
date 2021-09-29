@@ -50,7 +50,7 @@ const person = new Person({
 })
 
 person.save().then(result => {
-  console.log('added!' + person.name + person.number + "To the phonebook")
+  console.log('added' + person.name + person.number + "To the phonebook")
   mongoose.connection.close()
 })
 
