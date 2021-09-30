@@ -77,11 +77,18 @@ console.log (Person.findById({_id: id}))
   
   
 })
-app.delete('/api/persons/:id', (request, response) => {
-  const id = Number(request.params.id)
-  notes = notes.filter(note => note.id !== id)
-  response.status(204).end()
+app.delete('/api/persons/:id', (request, response, next) => {
+  //const id = Number(request.params.id)
+  //notes = notes.filter(note => note.id !== id)
+  //response.status(204).end()
+  const id = request.params.id
+  Person.findByIdAndRemove({_id: id})
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
+
 
 app.post('/api/persons', (request, response) => {
   const body = request.body
