@@ -20,14 +20,22 @@ const PersonSchema = new mongoose.Schema({
 const Person = mongoose.model('Person', PersonSchema)
 
 const person = new Person({
-  name: "Firstname Lastname222",
+  name: "Firstname4 Lastname4",
   date: new Date(),
-  number: 945745473,
+  number: 0454545445,
 })
 
 person.save().then(result => {
   console.log('added!!' + person.name + person.number + "To the phonebook")
   mongoose.connection.close()
+})
+
+PersonSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
 })
 
 //Person.find({}).then(result => {

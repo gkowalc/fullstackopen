@@ -54,14 +54,26 @@ app.get('/api/persons', (req, res) => {
   })
 })
 
-app.get('/api/persons/:id', (req, res) => {
+app.get('/api/persons/:id', (req, response) => {
+  //const person = persons.find(person => person.id == id)
+  
   const id = req.params.id
-  const person = persons.find(person => person.id == id)
-  if (person) {
-    res.json(person)
-  } else {
-    res.status(404).end()
-  }
+console.log(id)
+console.log (Person.findById({_id: id}))
+
+  Person.findById({_id: id})
+  .then(person => {
+    if (person) {
+      response.json(person)
+    } else {
+      response.status(404).end()
+    }
+  })
+  .catch(error => {
+    console.log(error)
+    response.status(400).send({ error: 'malformatted id' })
+  })
+
   
   
 })
