@@ -12,7 +12,16 @@ app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 app.use(express.static('build'))
 const Person = require('./models/person')
 
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
 
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  } 
+
+  next(error)
+}
+app.use(errorHandler)
 
 const generateId = () => {
   const maxId = persons.length > 0
@@ -54,7 +63,7 @@ app.get('/api/persons', (req, res) => {
   })
 })
 
-app.get('/api/persons/:id', (req, response) => {
+app.get('/api/persons/:id', (req, response, next) => {
   //const person = persons.find(person => person.id == id)
   
   const id = req.params.id
