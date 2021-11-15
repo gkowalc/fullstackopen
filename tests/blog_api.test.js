@@ -38,13 +38,47 @@ test('4.10', async () =>
     likes: 4
   }
   const initialresponse = await api.get('/api/blogs')
-  const initialcontents = initialresponse.body.map(r => r.content)
+  const initialcontents = initialresponse.body.map(r => r.likes)
 
   await api.post('/api/blogs').send(NewBLog)
   const response = await api.get('/api/blogs')
   const contents = response.body.map(r => r.title)
   expect(contents).toHaveLength(initialcontents.length + 1) 
   expect(contents).toContain('ttest 1234')
+
+})
+test('4.11', async () => 
+{
+  const NewBLog = {
+    title: 'ttest 1234',
+    author: 'authora',
+    url: 'url',
+
+  }
+  const initialresponse = await api.get('/api/blogs')
+  const initialcontents = initialresponse.body.map(r => r.likes)
+
+  await api.post('/api/blogs').send(NewBLog)
+
+
+  const response = await api.get('/api/blogs')
+  const contents = response.body.map(r => r.likes)
+  expect(contents).toHaveLength(initialcontents.length + 1)
+  expect(contents.at(-1)).toBe(0)
+
+})
+test('4.12', async () => 
+{
+  const NewBLog = {
+    author: 'authora',
+    url: 'url',
+
+  }
+
+  await api.post('/api/blogs').send(NewBLog).expect(400)
+  
+ 
+
 
 })
 
