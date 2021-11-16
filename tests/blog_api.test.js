@@ -84,7 +84,7 @@ test('4.12', async () =>
 // User tsts
 describe('when there is initially one user in db', () => {
   beforeEach(async () => {
-    await User.deleteMany({})
+    // await User.deleteMany({})
 
     const passwordHash = await bcrypt.hash('sekret', 10)
     const user = new User({ username: 'root', passwordHash })
@@ -113,6 +113,57 @@ describe('when there is initially one user in db', () => {
     const usernames = usersAtEnd.map(u => u.username)
     expect(usernames).toContain(newUser.username)
   })
+
+  test('Username or password lenght shorter than 3 characters', async () => {
+    const usersAtStart = await helper.usersInDb()
+
+    const newUser = {
+      username: 'ml',
+      name: 'Matti Luukkainen',
+      password: 'salainen',
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Wrong username/password conditions')
+      
+
+
+   
+  })
+
+  test('4.16', async () => {
+    const usersAtStart = await helper.usersInDb()
+   
+
+    const newUser = {
+      username: 'Mlasdfasfsa',
+      name: 'Matti Luukkainen',
+      password: 'salainen',
+    }
+    const newUser2 = {
+      username: 'Mlasss',
+      name: 'Matti Luukkainen',
+      password: 'salainen',
+    }
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+
+    await api
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+      .expect('Username must be unique')
+     
+
+
+   
+  }) 
+
 })
 afterAll(() => {
   mongoose.connection.close()

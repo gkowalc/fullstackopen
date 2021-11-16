@@ -1,10 +1,10 @@
-POST http://localhost:3001/api/blogs 
+
+POST http://localhost:3001/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "blog.title2",
-        "author": "blog.author2",
-        "url": "blog.url2",
-        "likes": 8
+   "username": "Mlaadf",
+      "name": "Matti Luinen",
+      "password": "saln",
 }
 
