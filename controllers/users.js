@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 usersRouter.get('/', async (request, response) => {
-  const users= await User.find({}) 
+  const users= await User.find({}).populate('blogs')
   response.json(users) 
         
         
@@ -29,10 +29,6 @@ usersRouter.post('/', async (request, response) => {
 
   
   if (usersIndblist.some(r=> r == user.username)) {
-
-    console.log(usersIndblist)
-    console.log(user.username)
-    console.log('not saved')
     response.status(400).send('Username must be unique')
   }
 

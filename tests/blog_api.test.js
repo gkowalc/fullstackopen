@@ -139,7 +139,7 @@ describe('when there is initially one user in db', () => {
    
 
     const newUser = {
-      username: 'Mlasdfasfsa',
+      username: 'MyUser',
       name: 'Matti Luukkainen',
       password: 'salainen',
     }
