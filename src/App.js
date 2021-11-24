@@ -4,18 +4,27 @@ import blogService from './services/blogs'
 import Login from './components/Login'
 import BlogForm from './components/BlogForm'
 import { render } from '@testing-library/react'
+import Notification from './components/Notification'
 const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null || localStorage.getItem(
     'loggedNoteappUser'))
-  
+    const [errorMessage, setErrorMessage] = useState(null)  
+
+
+
   const logout = () => {
     window.localStorage.removeItem(
       'loggedNoteappUser')
       setUser(null)
     
 
+  
    }
+   const updateErrorMessage = (updatedmessage) => 
+  {
+    setErrorMessage(updatedmessage)
+  }
   const updateUser = (updateduser) => 
   {
     setUser(updateduser)
@@ -23,7 +32,7 @@ const App = () => {
   
   useEffect(() => {
    
-  }, [user, localStorage.getItem(
+  }, [errorMessage ,user, localStorage.getItem(
     'loggedNoteappUser')])
 
 
@@ -39,7 +48,8 @@ const App = () => {
   return (
     <div>
       <h2>Enter username and password</h2>
-      <Login updateuser={updateUser}></Login>
+      <Notification errorMessage={errorMessage}></Notification>
+      <Login updateuser={updateUser} message={updateErrorMessage}></Login>
       
     </div>
   )}
@@ -49,7 +59,8 @@ const App = () => {
  
     return (<div>
       Logged in as: {userdata.name} <button onClick={logout}> Click to logout</button>
-      <BlogForm/>
+      <Notification errorMessage={errorMessage}></Notification>
+      <BlogForm message={updateErrorMessage}/>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}

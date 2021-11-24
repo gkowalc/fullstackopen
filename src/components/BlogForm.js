@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 const baseUrl = '/api/blogs'
-const BlogForm = () => {
+const BlogForm = (props) => {
     const [title, setTitle] = useState('') 
     const [author, setAuthor] = useState('') 
     const [url, setUrl] = useState('')      
-    const [errorMessage, setErrorMessage] = useState(null)  
+
 
     let token = null
     const setToken = newToken => {
@@ -14,16 +14,9 @@ const BlogForm = () => {
 
       const create = async newObject => {
         const retrievedtoken = JSON.parse(localStorage.getItem('loggedNoteappUser'))
-        console.log(retrievedtoken)
-        console.log(`bearer ${retrievedtoken.token}`)
-        // const token = setToken(retrievedtoken.token)
         const config = {
           headers: { Authorization: `bearer ${retrievedtoken.token}`},
         }
-        
-        console.log(newObject)
-        console.log(config)
-        console.log(baseUrl)
         const response = await axios.post(baseUrl, newObject, config)
         return response.data
       }
@@ -41,14 +34,21 @@ const BlogForm = () => {
               title, author, url
             }) 
            
-
+            props.message('a new blog:' + title + 'by' + author + 'added')
             setTitle('')
             setAuthor('')
             setUrl('')
-          } catch (exception) {
-            setErrorMessage('Wrong credentials')
             setTimeout(() => {
-              setErrorMessage(null)
+                props.message(null)  
+            
+            }, 5000)
+          } catch (exception) {
+            props.message('Something wrong')  
+            
+            
+            setTimeout(() => {
+                props.message(null)  
+            
             }, 5000)
           }
       }

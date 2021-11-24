@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 const baseUrl = '/api/login'
-const Login = (updateuser) => {
+const Login = (props) => {
     const [username, setUsername] = useState('') 
     const [password, setPassword] = useState('') 
     // const [user, setUser] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
+   
 
 
     const login = async credentials => {
@@ -20,20 +20,26 @@ const Login = (updateuser) => {
               username, password,
             }) 
             console.log("successful")
-            updateuser.updateuser(user)
-    
+            
+            props.updateuser(user)
+            props.message('Logged in!')  
+            setTimeout(() => {
+                props.message(null)  
+            
+            }, 5000)
             window.localStorage.setItem(
                 'loggedNoteappUser', JSON.stringify(user)
               ) 
 
-            const paresed = JSON.parse(localStorage.getItem('loggedNoteappUser')).token
-            console.log(paresed)
+    
             setUsername('')
             setPassword('')
           } catch (exception) {
-            setErrorMessage('Wrong credentials')
+            props.message('Wrong credentials')  
+            
             setTimeout(() => {
-              setErrorMessage(null)
+                props.message(null)  
+            
             }, 5000)
           }
       }
