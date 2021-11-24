@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 const baseUrl = '/api/login'
-const Login = (props) => {
+const Login = (updateuser) => {
     const [username, setUsername] = useState('') 
     const [password, setPassword] = useState('') 
     // const [user, setUser] = useState(null)
@@ -20,7 +20,11 @@ const Login = (props) => {
               username, password,
             }) 
             console.log("successful")
-            props.updateuser(user)
+            updateuser.updateuser(user)
+    
+            window.localStorage.setItem(
+                'loggedNoteappUser', JSON.stringify(user)
+              ) 
             setUsername('')
             setPassword('')
           } catch (exception) {
