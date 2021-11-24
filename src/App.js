@@ -5,12 +5,14 @@ import Login from './components/Login'
 import { render } from '@testing-library/react'
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null || localStorage.getItem(
+    'loggedNoteappUser'))
   
   const logout = () => {
     window.localStorage.removeItem(
-      'loggedNoteappUser'
-    ) 
+      'loggedNoteappUser')
+      setUser(null)
+    
 
    }
   const updateUser = (updateduser) => 
@@ -20,7 +22,8 @@ const App = () => {
   
   useEffect(() => {
    
-  }, [user])
+  }, [user, localStorage.getItem(
+    'loggedNoteappUser')])
 
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const App = () => {
 
  
     if ( window.localStorage.getItem(
-      'loggedNoteappUser')  === null) {
+      'loggedNoteappUser')  == null) {
   return (
     <div>
       <h2>Enter username and password</h2>
