@@ -25,6 +25,9 @@ const Login = (updateuser) => {
             window.localStorage.setItem(
                 'loggedNoteappUser', JSON.stringify(user)
               ) 
+
+            const paresed = JSON.parse(localStorage.getItem('loggedNoteappUser')).token
+            console.log(paresed)
             setUsername('')
             setPassword('')
           } catch (exception) {
