@@ -1,17 +1,24 @@
-import React, { useState, useEffect } from 'react'
+
+  
+import React, { useState, useEffect, useRef } from 'react'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
 import Login from './components/Login'
 import BlogForm from './components/BlogForm'
 import { render } from '@testing-library/react'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 const App = () => {
+  const noteFormRef = useRef()
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null || localStorage.getItem(
     'loggedNoteappUser'))
     const [errorMessage, setErrorMessage] = useState(null)  
 
-
+   const toggleFunction = () => { 
+     return  noteFormRef.current.toggleVisibility() 
+  
+  }
 
   const logout = () => {
     window.localStorage.removeItem(
@@ -60,10 +67,13 @@ const App = () => {
     return (<div>
       Logged in as: {userdata.name} <button onClick={logout}> Click to logout</button>
       <Notification errorMessage={errorMessage}></Notification>
-      <BlogForm message={updateErrorMessage}/>
+      <Togglable buttonLabel="new blog" ref={noteFormRef}>
+      <BlogForm message={updateErrorMessage} prop2={toggleFunction}/>
+      </Togglable>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
+   
     </div>)
   }
 }

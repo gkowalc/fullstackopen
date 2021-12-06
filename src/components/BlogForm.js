@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import axios from 'axios'
 const baseUrl = '/api/blogs'
 const BlogForm = (props) => {
@@ -18,6 +18,7 @@ const BlogForm = (props) => {
           headers: { Authorization: `bearer ${retrievedtoken.token}`},
         }
         const response = await axios.post(baseUrl, newObject, config)
+        
         return response.data
       }
 
@@ -35,6 +36,7 @@ const BlogForm = (props) => {
             }) 
            
             props.message('a new blog:' + title + 'by' + author + 'added')
+            props.prop2()
             setTitle('')
             setAuthor('')
             setUrl('')
