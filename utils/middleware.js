@@ -33,6 +33,17 @@ const tokenExtractor = (request, response, next) => {
 
   next()
 }
+
+const userExtractor = (request, response, next) => {
+  // code that extracts the token
+  const authorization = request.get('authorization')
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+    request.token = authorization.substring(7)
+  }
+  
+
+  next()
+}
 module.exports = {
   requestLogger,
   unknownEndpoint,
