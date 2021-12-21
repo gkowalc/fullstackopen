@@ -39,6 +39,13 @@ describe('Blog app', function() {
     it('5.19 a new blog can be created', function() {
       cy.get('#toggleablebutton_newblog').click()
       cy.contains('Create new')
+      cy.get('#Title1').type('QQQ')
+      cy.get('#author').type('salainen')
+      cy.get('#url').type('www.google.com')
+      cy.get('#submit').click()
+      cy.reload()
+      cy.contains('QQQ')
+      
     })
 
   })
