@@ -47,6 +47,22 @@ describe('Blog app', function() {
       cy.contains('QQQ')
       
     })
+    it('5.21* a new blog can be removed by user who created it', function() {
+      cy.get('#619636db17bc0cfd5ff4cbe3').click()
+      cy.contains('15')
+      
+        cy.get('#button619636db17bc0cfd5ff4cbe3').click()
+        cy.reload()
+        cy.get('#619636db17bc0cfd5ff4cbe3').click()
+        cy.contains('16')
+       
+
+      
+      
+
+
+      
+    
 
   })
-  
+})

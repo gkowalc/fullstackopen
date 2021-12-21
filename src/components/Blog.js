@@ -81,12 +81,12 @@ const deleteEntry = async () => {
   } 
   if (visible) {
     return(
-      <div style={blogStyle}>
+      <div style={blogStyle} >
         {blog.title} <br></br>
         {blog.author} <br></br>
         {blog.url} <br></br>
         {blog.likes} 
-        <button onClick={likeButton}>like </button> <br></br>
+        <button id={"button" + blog.id } onClick={likeButton}>like </button> <br></br>
         <button onClick={toggleVisibility}>cancel</button>
         <button onClick={deleteEntry}>DELETE!</button>
         </div>
@@ -97,7 +97,7 @@ const deleteEntry = async () => {
       <div style={blogStyle}>
         {blog.title}
       
-        <button onClick={toggleVisibility}>view</button>
+        <button id={blog.id} onClick={toggleVisibility}>view</button>
         </div>
     ) 
   } 
