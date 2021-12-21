@@ -20,11 +20,15 @@ const BlogForm = (props) => {
         const response = await axios.post(baseUrl, newObject, config)
         
         return response.data
-      }
+      } 
 
     const blogcreation = async credentials => {
         const response = await axios.post(baseUrl, credentials)
         return response.data
+      
+
+
+
       }    
       
       const handleBlogCreation = async (event) => {
@@ -58,10 +62,11 @@ const BlogForm = (props) => {
     return (
     <div>
         <h2>  Create new</h2>
-      <form onSubmit={handleBlogCreation}>
-        <div>
+      <form onSubmit={handleBlogCreation} id='form'>
+        <div className="input">
           Title
             <input
+            id='Title1'
             type="text"
             value={title}
             name="title"
@@ -70,8 +75,9 @@ const BlogForm = (props) => {
           />
         </div>
         <div>
-          password
+          author
             <input
+            id='author'
             type="text"
             value={author}
             name="authot"
@@ -84,6 +90,7 @@ const BlogForm = (props) => {
         <div>
           url
             <input
+            id='url'
             type="text"
             value={url}
             name="authot"
@@ -93,7 +100,7 @@ const BlogForm = (props) => {
             
 
         </div>
-        <button type="submit">create</button>
+        <button type="submit" id='submit'>create</button>
       </form>
     </div> ) 
   } 
