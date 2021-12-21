@@ -62,19 +62,18 @@ const App = () => {
   )}
   else {
     const userdata = JSON.parse(window.localStorage.getItem('loggedNoteappUser'))
-    console.log(userdata.name)
-    const aaa = blogs.map(blog =>
+ 
+    const bloglist = blogs.map(blog =>
       <Blog key={blog.id} blog={blog}/>)
-    console.log(aaa)
-    const aaa_sorted = aaa.sort((a,b) => (b.props.blog.likes - a.props.blog.likes))
-    console.log(aaa_sorted)
+    
+    const bloglist_sorted = bloglist.sort((a,b) => (b.props.blog.likes - a.props.blog.likes))
     return (<div>
       Logged in as: {userdata.name} <button onClick={logout}> Click to logout</button>
       <Notification errorMessage={errorMessage}></Notification>
-      <Togglable buttonLabel="new blog" ref={noteFormRef}>
+      <Togglable id="toggablebutton" buttonLabel="new blog" ref={noteFormRef}>
       <BlogForm message={updateErrorMessage} prop2={toggleFunction}/>
       </Togglable>
-      {aaa_sorted}
+      {bloglist_sorted}
    
     </div>)
   }

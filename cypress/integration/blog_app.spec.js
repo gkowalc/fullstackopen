@@ -1,5 +1,5 @@
 
-describe('Note app', function() {
+describe('Blog app', function() {
     it('login form is shown', function() {
       cy.visit('http://localhost:3000')
       cy.contains('Enter username and password')
@@ -23,4 +23,23 @@ describe('Note app', function() {
     cy.get('#password').type('salainen')
     cy.get('#submit_button').click()
     cy.contains('Logged in!')
+  
+    
   })
+  describe('When logged in', function() {
+    beforeEach(function() { 
+      cy.request('POST', 'http://localhost:3001/api/login', {
+        username: 'MyUser', password: 'salainen'
+      }).then(response => {
+        localStorage.setItem('loggedNoteappUser', JSON.stringify(response.body))
+        cy.visit('http://localhost:3000')
+      })
+    })
+
+    it('5.19 a new blog can be created', function() {
+      cy.get('#toggleablebutton_newblog').click()
+      cy.contains('Create new')
+    })
+
+  })
+  
