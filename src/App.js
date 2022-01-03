@@ -1,12 +1,22 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import {incremenetVote, reducer} from './reducers/anecdoteReducer'
+//import {reducer} from 'reducers/anecdoteReducer'
 const App = () => {
   const anecdotes = useSelector(state => state)
   const dispatch = useDispatch()
 
+   const incremenetVote2 = (id_param) => {
+
+    return {
+      type: 'INCREMENT',
+      data: {id: id_param}
+      
+    }
+  }
   const vote = (id) => {
     console.log('vote', id)
+    dispatch(incremenetVote2(id))
   }
 
   return (

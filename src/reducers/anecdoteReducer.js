@@ -17,13 +17,42 @@ const asObject = (anecdote) => {
   }
 }
 
+
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
 
+
+export const reducer = (state = initialState, action) => {
+  switch (action.type){
+  case 'INCREMENT':
+    console.log("hello2")
+    const id = (action.data.id)
+    const anectodeToVote = state.find(n => n.id === id)
+    console.log(anectodeToVote)
+    const incrementedAnectote = {
+      ...anectodeToVote, votes: anectodeToVote.votes + 1
+    }
+    const anecdotes = state.map(anecdote =>
+      anecdote.id !== id ? anecdote : incrementedAnectote)
+      return anecdotes
+    console.log(state)
+  // console.log('state now: ', state)  
+  // console.log('action', action)
   return state
 }
-
-export default reducer
+  return state
+}
+export const incremenetVote = (id_param) => {
+  console.log('hello')
+  return {
+    type: 'INCREMENT',
+    data: {id: "kurwa"}
+    
+  }
+}
+//  case 'INCREMENT':
+// var state_value_initial = state.votes
+//const changed_stated_increment = {
+//  ...state, votes: state_value_initial +=1
+//}
+//return changed_stated_increment
