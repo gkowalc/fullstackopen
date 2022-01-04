@@ -20,7 +20,27 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
+export const incremenetVote2 = (id_param) => {
 
+  return {
+    type: 'INCREMENT',
+    data: {id: id_param
+    }
+    
+  }
+}
+export const addAnecdoteAction = (event) => {
+  event.preventDefault()
+  const content = event.target.note.value
+  event.target.note.value = ''
+
+  return {
+    type: 'ADDNOTE',
+    data: {
+      content: content
+    }
+  }
+}
 
 export const reducer = (state = initialState, action) => {
   // eslint-disable-next-line default-case
@@ -36,11 +56,8 @@ export const reducer = (state = initialState, action) => {
         anecdote.id !== id ? anecdote : incrementedAnectote)
         return anecdotes
     case 'ADDNOTE':
-      console.log('hello addnote')
       const anecdote = (action.data.content)
       const anecdote_with_id = asObject(anecdote)
-      console.log(anecdote)
-      console.log(anecdote_with_id)
       return state.concat(anecdote_with_id)
 
 
