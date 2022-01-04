@@ -23,7 +23,7 @@ const App = () => {
     event.preventDefault()
     const content = event.target.note.value
     event.target.note.value = ''
-    console.log(content)
+
     return {
       type: 'ADDNOTE',
       data: {
@@ -31,9 +31,8 @@ const App = () => {
       }
     }
   }
-
+const anecnotes_sorted = anecdotes.sort((a,b) => (b.votes - a.votes))
 const add2 = () => {
-  console.log("hello3")
   dispatch(addAnecdoteAction(event))
 }
 
@@ -41,7 +40,7 @@ const add2 = () => {
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
+      {anecnotes_sorted.map(anecdote =>
         <div key={anecdote.id}>
           <div>
             {anecdote.content}
