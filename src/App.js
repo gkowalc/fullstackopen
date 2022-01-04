@@ -10,7 +10,8 @@ const App = () => {
 
     return {
       type: 'INCREMENT',
-      data: {id: id_param}
+      data: {id: id_param
+      }
       
     }
   }
@@ -18,6 +19,24 @@ const App = () => {
     console.log('vote', id)
     dispatch(incremenetVote2(id))
   }
+  const addAnecdoteAction = (event) => {
+    event.preventDefault()
+    const content = event.target.note.value
+    event.target.note.value = ''
+    console.log(content)
+    return {
+      type: 'ADDNOTE',
+      data: {
+        content: content
+      }
+    }
+  }
+
+const add2 = () => {
+  console.log("hello3")
+  dispatch(addAnecdoteAction(event))
+}
+
 
   return (
     <div>
@@ -34,8 +53,8 @@ const App = () => {
         </div>
       )}
       <h2>create new</h2>
-      <form>
-        <div><input /></div>
+      <form onSubmit={add2}>
+        <div><input name="note" /></div>
         <button>create</button>
       </form>
     </div>
